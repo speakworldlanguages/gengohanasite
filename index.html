@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head> <!-- Default landing page -->
+  <head> <!-- This index.html must be a copy of what used to be ja.html found in speakworldlanguages.github.io (NOT the copy of index.html in speakworldlanguages.github.io) -->
     <script src="js_reusables/js_for_preload_handling_of_all_htmls.js">/* INCLUSION PRIORITIZED: Another piece of code, building our app */</script>
     <script> var thisIsTheParentWhichContainsAllIFramedLessons = "yes"; </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.1, minimum-scale=1.0"> <!-- For mobile device screens to display things properly -->
-    <title>Learn to speak world languages</title>
-    <meta name="description" content="Speaking two languages is twice as good as one and three is thrice.">
-    <meta name="author" content="Manheart Earthman">
+    <title>地球人の言葉を習いましょう</title>
+    <meta name="description" content="世界の人間たちの会話を聴解できますように言語を勉強しませんか">
+    <meta name="author" content="土本勇夫智一剛志">
 
-    <link rel="alternate" hreflang="ja" href="hanaserutoiidesuy.one">
+    <link rel="alternate" hreflang="ja" href="https://hanaserutoiidesuy.one">
     <!-- <link rel="alternate" hreflang="ko" href="https://???"> -->
     <!-- <link rel="alternate" hreflang="zh" href="https://???"> -->
     <!-- <link rel="alternate" hreflang="ms" href="https://???"> -->
-    <link rel="alternate" hreflang="tr" href="tr.html">
+    <!-- <link rel="alternate" hreflang="tr" href="https://birdildahaogreneyim"> -->
     <!-- <link rel="alternate" hreflang="ar" href="https://???"> -->
-    <link rel="alternate" hreflang="en" href="index.html">
+    <!-- <link rel="alternate" hreflang="en" href="https://speakworldlanguages"> -->
 
     <link rel="icon" type="image/png" href="user_interface/icon/animated_globe_icon_39.png" id="icon" sizes="32x32"> <!-- This appears next to the title in the browser's TABS and plays as an animation. See js_for_icon_animation.js -->
     <link rel="preload" href="css_reusables/css_for_custom_cursor.css" as="style" onload=" var useThis=this; useThis.onload=null; setTimeout(function(){ useThis.rel='stylesheet'; },3000); "> <!-- DESKTOPS only! -->
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="css_reusables/css_for_every_single_html.css">
     <link rel="stylesheet" href="css_reusables/css_for_all_container_parent_htmls.css">
     <link rel="stylesheet" href="css_reusables/css_for_sliding_navigation_menu.css">
-    <link rel="stylesheet" href="css_reusables/css_for_latin_font_rules.css">
+    <link rel="stylesheet" href="css_reusables/css_for_hitoic_kanji_font_rules.css">
 
     <script src="third_party_js/annyang.min.js">/*Speech Recognition library by Tal Ater - Github: TalAter*/</script>
     <script src="third_party_js/ua-parser.min.js">/*JS library for getting the browser and OS names by Faisal Salman - Github: faisalman*/</script>
@@ -56,7 +56,7 @@
     <script>
       /*PLACE ANY SPECIFIC CODE HERE IF NECESSARY*/
     </script>
-
+    <style> .extraLineHeight{line-height: 150%;}  </style>
   </head>
   <body>
     <div id="idOfThePreloadHandlingDiv" style="position: fixed; top:0; left:0; bottom:0; right:0; background-color: white; display: flex; justify-content: center; align-items: center; z-index: 9999;">
@@ -68,48 +68,28 @@
     <!-- THE MAIN MENU -->
     <div id="fullViewportPositionFixedDivAsContainerOfTheMenu"> <!-- See css_for_all_container_parent_htmls.css -->
       <div class="upperHalfDiv">
-        <p>Choose the language you want to learn</p>
+        <p style="white-space: nowrap;">何言語を学びたいですか</p>
       </div>
       <div class="lowerHalfDiv">
-        <!-- When more languages are hopefully added better list them with the world map order like east to west, west to east,right to left, left to right with a swipable navigation design -->
-        <!-- Initial location of that grid map can be users location via IP geolocation OR USER'S LOCAL TIME VERSUS UTC; we want to avoid asking permission for GPS location as that would be distracting or could be annoying -->
-        <button onclick="letTheIFrameTeachJapanese()">Hito Language (Japanese)</button> <!-- See js_for_all_container_parent_htmls.js -->
-        <!-- <button onclick="letTheIFrameTeachChinese()">Ren Language (Chinese)</button> -->
-        <button onclick="letTheIFrameTeachTurkish()">Kishi Language (Turkish)</button> <!-- See js_for_all_container_parent_htmls.js -->
-        <button onclick="letTheIFrameTeachArabic()">Standard Arabic</button> <!-- See js_for_all_container_parent_htmls.js -->
-        <button onclick="letTheIFrameTeachEnglish()">English with major accents</button> <!-- See js_for_all_container_parent_htmls.js -->
+        <!-- When more languages are hopefully added better list them with the world map order like east to west, west to east,right to left, left to right swipe area -->
+        <!-- Initial location of that grid map can be users location via IP geolocation; we want to avoid asking permission for GPS location as that would be distracting or could be annoying -->
+        <button class="extraLineHeight" onclick="letTheIFrameTeachJapanese()">八島語<br>(日本語)</button> <!-- See js_for_all_container_parent_htmls.js -->
+        <!-- <button class="extraLineHeight" onclick="letTheIFrameTeachChinese()">中華語</button> -->
+        <button class="extraLineHeight" onclick="letTheIFrameTeachTurkish()">ツルックチェ<br>(トルコ語)</button> <!-- See js_for_all_container_parent_htmls.js -->
+        <button class="extraLineHeight" onclick="letTheIFrameTeachArabic()">アラビア語</button> <!-- See js_for_all_container_parent_htmls.js -->
+        <button class="extraLineHeight" onclick="letTheIFrameTeachEnglish()">イングリッシュ<br>(英語)</button> <!-- See js_for_all_container_parent_htmls.js -->
       </div>
     </div>
 
     <div id="fullViewportPositionFixedDivAsContainerOfLoadCheckpointPrompt">
       <div class="promptBoxesLikeTheOneForLoadingTheLastLesson">
-        <p>Continue from where you were</p>
-        <button onclick="whenLoadLastLessonOkButtonIsClickedOrTapped()">OK</button> <!-- See js_for_all_container_parent_htmls.js -->
+        <p class="extraLineHeight" style="/*white-space: nowrap;*/">前回開いていたそこからね</p>
+        <button onclick="whenLoadLastLessonOkButtonIsClickedOrTapped()">ＯＫ</button> <!-- See js_for_all_container_parent_htmls.js -->
       </div>
     </div>
 
     <!-- LESSONS WILL BE DISPLAYED ONE BY ONE THROUGH THIS IFRAME -->
-    <!-- Firefox refresh button's bug is solved; see js_for_browser_device_issues_in_parents.js  -->
     <iframe src="user_interface/blank.html" id="theIdOfTheIframe" allowfullscreen></iframe>
-    <!-- allowfullscreen is needed to be able to call requestFullscreen on the iframe, should that be necessary -->
-
-    <!-- REDIRECT AND SET GUI LANGUAGE ACCORDING TO THE BROWSER LANGUAGE -->
-    <script>
-      // See js_for_every_single_html.js to find UI language settings.
-      // Wait for DOMContentLoaded to be able to use the “browserLanguage” variable from the js file.
-      window.addEventListener('DOMContentLoaded', function(){
-        switch (browserLanguage) {
-          case "ja": window.open("ja.html", "_top"); break; // For Hitoland a.k.a. Japan
-          //case "ko": window.open("https://???", "_top"); break; // For Saramland a.k.a. Korea
-          //case "zh": window.open("https://???", "_top"); break; // For Renland a.k.a China
-          //case "ms": window.open("https://???", "_top"); break; // For Malaysia
-          case "tr": case "az": case "uz": case "tk": /*case "ug": */ case "ky": case "kk": window.open("tr.html", "_top"); break;  // Şunları içerebilir: Türkiye, Özbekistan, Uygur Doğu Türkistan, Türkmenistan, Kırgızistan, Kazakistan, Azerbaycan
-          //case "ar": window.open("https://???", "_top"); break;
-          default: // Stay here in index.html (English GUI)
-        }
-      }, { once: true });
-      // We don't want to complicate the GUI by adding a button to change the language of the interface. SMART MINIMALISM!
-    </script>
 
   </body>
 </html>
