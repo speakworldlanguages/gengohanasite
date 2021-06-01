@@ -15,7 +15,7 @@
     <!-- <link rel="alternate" hreflang="ms" href="https://???"> -->
     <!-- <link rel="alternate" hreflang="tr" href="https://birdildahaogreneyim"> -->
     <!-- <link rel="alternate" hreflang="ar" href="https://???"> -->
-    <!-- <link rel="alternate" hreflang="en" href="https://speakworldlanguages"> -->
+    <link rel="alternate" hreflang="en" href="https://speakworldlanguages.app">
 
     <link rel="icon" type="image/png" href="user_interface/icon/animated_globe_icon_39.png" id="icon" sizes="32x32"> <!-- This appears next to the title in the browser's TABS and plays as an animation. See js_for_icon_animation.js -->
     <link rel="preload" href="css_reusables/css_for_custom_cursor.css" as="style" onload=" var useThis=this; useThis.onload=null; setTimeout(function(){ useThis.rel='stylesheet'; },3000); "> <!-- DESKTOPS only! -->
@@ -108,12 +108,8 @@
       window.addEventListener('DOMContentLoaded', function(){
         switch (browserLanguage) {
           case "ja": break; // For Hitoland a.k.a. Japan stay here in the jp_clone of the app
-          //case "ko": window.open("https://???", "_top"); break; // For Saramland a.k.a. Korea
-          //case "zh": window.open("https://???", "_top"); break; // For Renland a.k.a China
-          //case "ms": window.open("https://???", "_top"); break; // For Malaysia
-          //case "tr": case "az": case "uz": case "tk": /*case "ug": */ case "ky": case "kk": window.open("tr.html", "_top"); break;  // Şunları içerebilir: Türkiye, Özbekistan, Uygur Doğu Türkistan, Türkmenistan, Kırgızistan, Kazakistan, Azerbaycan
-          //case "ar": window.open("https://???", "_top"); break;
-          default: window.open("https://speakworldlanguages.github.io", "_top"); // Go to the main repository (English GUI)
+          //case "??": window.open("https://???", "_top"); break; // For ??
+          default: window.open("https://speakworldlanguages.app", "_top"); // Go to the main repository page (English GUI)
         }
       }, { once: true });
       // We don't want to complicate the GUI by adding a button to change the language of the interface. SMART MINIMALISM!
