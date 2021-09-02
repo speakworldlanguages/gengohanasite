@@ -14,6 +14,12 @@ function userHasClickedOrTouchedWelcomeAnswerB() { // The user has claimed that 
   localStorage.theUserHasSaidHeOrSheIsAMemberOfTheCrowd = "yes";
 }
 
+
+var genderOfTheUser;
+var theLanguageUserIsLearningNowToSetPathsAndNotes;
+var theLanguageUserIsLearningNowToSetAnnyang;
+const iFrameScriptAccess = document.getElementById('theIdOfTheIframe');
+
 window.addEventListener('DOMContentLoaded', function(){
   // Skip the crowdfunding (welcome screen) message if user says he she is a member.
   if (localStorage.theUserHasSaidHeOrSheIsAMemberOfTheCrowd == "yes") {
@@ -21,21 +27,25 @@ window.addEventListener('DOMContentLoaded', function(){
   }
 }, { once: true });
 
-var genderOfTheUser;
-var theLanguageUserIsLearningNowToSetPathsAndGUI;
-var theLanguageUserIsLearningNowToSetAnnyang;
-const iFrameScriptAccess = document.getElementById('theIdOfTheIframe');
-
+window.addEventListener('load', function(){
+  // Fire if new stuff has appeared in the iframe. CAUTION: Do not use iFrameScriptAccess.onload = function... Because it overwrites the one inside js_for_the_sliding_navigation_menu
+  iFrameScriptAccess.addEventListener('load',frameIsLoaded);
+  function frameIsLoaded() { // This will fire at the first launch (for empty src blank.html) too (that is before 1-1-1 index.html)
+    // Preloader will disappear in 500ms.
+    // console.log("frameIsLoaded has fired"); // TESTED: It works.
+    setTimeout(function () {   setPreloadCoverIsShowingNowToFalse();   },505); // See js_for_preload_handling
+  }
+}, { once: true });
 // CODE TO BE REMOVED AFTER TESTS IS
 // FROM HERE
 // TO HERE
 
-// Continue progress from last unit
+// Continue progress from last unit / last saved position
 if (localStorage.theLastCheckpointSavedInLocalStorage) { // See if a previously saved checkpoint exists.
   // MUST USE display:none to avoid click blocking by z-index.
   document.getElementById('fullViewportPositionFixedDivAsContainerOfLoadCheckpointPrompt').classList.add("addThisForOpacityAnimationFadeIn");
   // NOTE: Chrome does not count an alert box click as a user gesture.
-  theLanguageUserIsLearningNowToSetPathsAndGUI = localStorage.theLanguageUserWasLearningLastTimeToSetPathsAndGUI; // This will certainly exist as long as there has been a checkpoint save.
+  theLanguageUserIsLearningNowToSetPathsAndNotes = localStorage.theLanguageUserWasLearningLastTimeToSetPathsAndNotes; // This will certainly exist as long as there has been a checkpoint save.
   theLanguageUserIsLearningNowToSetAnnyang = localStorage.theLanguageUserWasLearningLastTimeToSetAnnyang; // Same situation.
   if (annyang) {
       annyang.setLanguage(theLanguageUserIsLearningNowToSetAnnyang); // Firefox v60's and v70's won't let buttons function unless this is wrapped in an if (annyang){} like this.
@@ -57,10 +67,11 @@ if (localStorage.theLastCheckpointSavedInLocalStorage) { // See if a previously 
       addHomeButtonToTheNavigationMenu();
       addGoBackToPreviousButtonToTheNavigationMenu();
     }
-    handleGoingFullscreenOnMobiles();
+    handleTheFirstGoingFullscreenOnMobiles();
 
     // Make the loading animation appear (i.e. bring the preloader)
-    preloadHandlingDiv.classList.remove("addThisClassToHideIt"); // See css_for_every_single_html
+    preloadHandlingDiv.classList.remove("addThisClassToHideIt"); // See css_for_every_single_html,,, Should be 500ms if not changed.
+    setPreloadCoverIsShowingNowToTrue(); // See js_for_preload_handling
   }
 } else {
   // First time users will proceed via openFirstLesson()
@@ -77,14 +88,14 @@ femalesIcon.src = "user_interface/images/gender_ladies.webp";
 /*What language will be taught via the iframe*/
 /* JA - Hito */
 function letTheIFrameTeachJapanese(){ //See index.html to find the button that triggers this via onclick.
-  theLanguageUserIsLearningNowToSetPathsAndGUI = "ja"; //"ja" is OK with both iOS and Android
+  theLanguageUserIsLearningNowToSetPathsAndNotes = "ja"; //"ja" is OK with both iOS and Android
   theLanguageUserIsLearningNowToSetAnnyang = "ja";
   openFirstLesson();
 }
 /* ZH - Ren */
 function letTheIFrameTeachChinese(){ //See index.html to find the button that triggers this via onclick.
-  theLanguageUserIsLearningNowToSetPathsAndGUI = "zh"; // Android is OK with "zh" but iOS needs "zh-TW"
-  theLanguageUserIsLearningNowToSetAnnyang = "zh"; // We still want to pass "zh" on Android and Windows. Because Android turns the mic on and off too quickly in some less supported languages.
+  theLanguageUserIsLearningNowToSetPathsAndNotes = "zh"; // Android is OK with "zh" but iOS needs "zh-TW"
+  theLanguageUserIsLearningNowToSetAnnyang = "zh"; // We may still want to pass "zh" instead of "zh-TW" on Android and Windows. Because Android turns the mic on and off too quickly in some less supported languages.
   if (detectedOS.name == "iOS") {
     theLanguageUserIsLearningNowToSetAnnyang = "zh-TW"; // Overwrite
   }
@@ -93,13 +104,13 @@ function letTheIFrameTeachChinese(){ //See index.html to find the button that tr
 }
 /* TR - Kişi */
 function letTheIFrameTeachTurkish(){ //See index.html to find the button that triggers this via onclick.
-  theLanguageUserIsLearningNowToSetPathsAndGUI = "tr"; //"tr" is OK with both iOS and Android
+  theLanguageUserIsLearningNowToSetPathsAndNotes = "tr"; //"tr" is OK with both iOS and Android
   theLanguageUserIsLearningNowToSetAnnyang = "tr";
   openFirstLesson();
 }
 /* AR Arabic */
 function letTheIFrameTeachArabic(){ //See index.html to find the button that triggers this via onclick.
-  theLanguageUserIsLearningNowToSetPathsAndGUI = "ar"; // Android is OK with "ar" but iOS needs "ar-SA" or "ar-QA" etc
+  theLanguageUserIsLearningNowToSetPathsAndNotes = "ar"; // Android is OK with "ar" but iOS needs "ar-SA" or "ar-QA" etc
   theLanguageUserIsLearningNowToSetAnnyang = "ar"; // We still want "ar" instead of "ar-SA" on Android for better performance (frequency of the mic turn on&off thing).
   if (detectedOS.name == "iOS") {
     theLanguageUserIsLearningNowToSetAnnyang = "ar-SA"; // Overwrite... Don't know which is better: ar-SA ar-JO ar-KW ar-QA
@@ -161,7 +172,7 @@ function letTheIFrameTeachArabic(){ //See index.html to find the button that tri
 }
 /* EN - People */
 function letTheIFrameTeachEnglish(){ //See index.html to find the button that triggers this via onclick.
-  theLanguageUserIsLearningNowToSetPathsAndGUI = "en"; // "en" alone works well both on Android and iOS. No need for "en-US" or "en-GB"
+  theLanguageUserIsLearningNowToSetPathsAndNotes = "en"; // "en" alone works well both on Android and iOS. No need for "en-US" or "en-GB"
   theLanguageUserIsLearningNowToSetAnnyang = "en";
   openFirstLesson();
 }
@@ -169,14 +180,14 @@ function letTheIFrameTeachEnglish(){ //See index.html to find the button that tr
 /*___________Navigate to first lesson_____________*/
 function openFirstLesson() {
   // Save language choice
-  localStorage.theLanguageUserWasLearningLastTimeToSetPathsAndGUI = theLanguageUserIsLearningNowToSetPathsAndGUI;
+  localStorage.theLanguageUserWasLearningLastTimeToSetPathsAndNotes = theLanguageUserIsLearningNowToSetPathsAndNotes;
   localStorage.theLanguageUserWasLearningLastTimeToSetAnnyang = theLanguageUserIsLearningNowToSetAnnyang;
   // Set language
   if (annyang) {
       annyang.setLanguage(theLanguageUserIsLearningNowToSetAnnyang); // Firefox v60's and v70's won't let buttons function unless this is wrapped in an if (annyang){} like this.
   }
 
-  handleGoingFullscreenOnMobiles();
+  handleTheFirstGoingFullscreenOnMobiles();
 
   setTimeout(function() {
     // Hide the welcome screen ( <<choose the language you want to learn>> screen's menu-div)
@@ -186,11 +197,12 @@ function openFirstLesson() {
   },50); // Unnoticable tiny delay
 
   // Make the loading animation appear (i.e. bring the preloader)
-  preloadHandlingDiv.classList.remove("addThisClassToHideIt"); // See css_for_every_single_html
+  preloadHandlingDiv.classList.remove("addThisClassToHideIt"); // See css_for_every_single_html,,, Should be 500ms if not changed.
+  setPreloadCoverIsShowingNowToTrue(); // See js_for_preload_handling
 }
 
-function handleGoingFullscreenOnMobiles() {
-  // Try to go fullscreen on mobile devices. Note that this won't work on iPhones!
+function handleTheFirstGoingFullscreenOnMobiles() { // This fires if 1- User selects a language to learn 2- User returns to the last saved point
+  // Try to go fullscreen on mobile devices. Note the exception of iPhones!
   if (deviceDetector.isMobile) {
     // Going fullscreen on mobiles will make the nav menu sink down and disappear because
     // as you can find in js_for_the_sliding_navigation_menu.js -> the resize event triggers hideOrUnhideTheNavigationMenuOnMobilesDependingOnFullscreen()
@@ -198,8 +210,16 @@ function handleGoingFullscreenOnMobiles() {
     // WARNING: iPhone's Safari won't allow fullscreen! caniuse.com says it is allowed on iPads but wasn't able to test it as of July 2021.
     // So since resize doesn't happen on iPhones we must manually do the first sinking of the nav menu like this.
     if (deviceDetector.device == "phone" && detectedOS.name == "iOS") {
-      // Just hide the nav menu since we are unable to go fullscreen
-      setTimeout(function () {      makeTheNavMenuGoDownOnMobiles();      },3500); // See js_for_the_sliding_navigation_menu
+      // Just hide the nav menu since we are unable to go fullscreen on an iPhone
+      // INSTEAD OF THIS: setTimeout(function () {      makeTheNavMenuGoDownOnMobiles();      },3500); // See js_for_the_sliding_navigation_menu
+      // WE MUST: wait until preloadCoverIsShowingNow is set to false. That change happens in js_for_all_container_parent_htmls
+      let checkEvery350msOrSo = setInterval(isThePreloaderDoneYet, 350);
+      function isThePreloaderDoneYet() {
+        if (preloadCoverIsShowingNow == false) { // Yes, it is now done.
+          clearInterval(checkEvery350msOrSo); // Stop the timer.
+          makeTheNavMenuGoDownOnMobiles(); // Safely hide the nav menu as soon as possible now. // See js_for_the_sliding_navigation_menu
+        }
+      }
     }
   } // END OF Try to go fullscreen on mobile ...
 }
@@ -215,29 +235,41 @@ setInterval( function ()
 } , 6000);
 
 // UI sounds ... also see js_for_browser_device_issues_in_parents.js
+const dismissNotificationSound1 = new Howl({  src: ['user_interface/sounds/notification_close_1.mp3']  });
 const hoverSound = new Howl({  src: ['user_interface/sounds/illuminant_button_hover.mp3']  }); // DESKTOP ONLY!
 const clickSound = new Howl({  src: ['user_interface/sounds/illuminant_button_click.mp3']  });
 
-let allIndexButtonElementsAreInThisArray = document.getElementsByTagName("BUTTON"); /*All buttons in parents, without any of the lesson buttons*/
+let allParentButtonElementsAreInThisArray = document.getElementsByTagName("BUTTON"); /*All of them in container parents,,, NOT THE IFRAMED LESSON BUTTONS*/
 let i;
-for (i = 0; i < allIndexButtonElementsAreInThisArray.length; i++)
+for (i = 0; i < allParentButtonElementsAreInThisArray.length; i++)
 {
-  allIndexButtonElementsAreInThisArray[i].addEventListener("mousedown", mouseDown);
+  allParentButtonElementsAreInThisArray[i].addEventListener("mousedown", mouseDownMenuButtonF);
   if (deviceDetector.device == "desktop") {
-    allIndexButtonElementsAreInThisArray[i].addEventListener("mouseenter", mouseEnter);
+    allParentButtonElementsAreInThisArray[i].addEventListener("mouseenter", mouseEnterMenuButtonF);
   }
 }
+
+let allParentAsideElementsAreInThisArray = document.getElementsByTagName("ASIDE"); /*All of them in container parents,,, NOT THE IFRAMED LESSON BUTTONS*/
+let j;
+for (j = 0; j < allParentAsideElementsAreInThisArray.length; j++)
+{
+  allParentAsideElementsAreInThisArray[j].addEventListener("mousedown", mouseDownAsideAsButtonF);
+}
+
 // Detect first click/first user gesture that unlocks sounds
 // REMEMBER: Sliding menu buttons also need this. Handle separately. See js_for_the_sliding_navigation_menu.js
 var soundShouldBeUnlockedNow = false;
 window.addEventListener("mousedown",function () {  soundShouldBeUnlockedNow = true;  }, {once:true});
-function mouseEnter() {
+function mouseEnterMenuButtonF() {
   if (soundShouldBeUnlockedNow) { // TESTED: It works.
-    hoverSound.play();
+    hoverSound.play(); // If we don't wrap this in such an if() what can happen: The user can hover many times before the sound is unlocked which then EXPLODES when sound is unlocked.
   }
 }
-function mouseDown() {
+function mouseDownMenuButtonF() {
   clickSound.play();
+}
+function mouseDownAsideAsButtonF() {
+  dismissNotificationSound1.play();
 }
 /*___________*/
 // Domain locking against forks etc.

@@ -26,7 +26,11 @@ var notificationBoxItself;
 var putNotificationTxtIntoThisP;
 var okButtonToCloseTheNotification;
 
+const popUpNotificationSound = new parent.Howl({  src: ['user_interface/sounds/notification2_appear.mp3']  });
+const dismissNotificationSound = new parent.Howl({  src: ['user_interface/sounds/notification2_close.mp3']  });
+
 function createAndHandleNotificationBox() {
+  popUpNotificationSound.play();
   notificationBoxContainer = document.createElement("DIV");
   notificationBoxContainer.classList.add("notificationBG"); // See css_for_all_iframed_lesson_htmls
   document.body.appendChild(notificationBoxContainer);
@@ -45,10 +49,12 @@ function createAndHandleNotificationBox() {
   notificationBoxItself.appendChild(okButtonToCloseTheNotification);
   okButtonToCloseTheNotification.addEventListener("mousedown",okButtonIsClicked);
   function okButtonIsClicked(event) {
+    dismissNotificationSound.play();
     notificationBoxContainer.classList.add("addThisToAButtonForPlayStationStyleClick"); // See css_for_every_single_html_css
     setTimeout(function () {     notificationBoxContainer.parentNode.removeChild(notificationBoxContainer);     },1000); // The animation completes in 600ms
-    // BETTER: If we use typeof === function before trying to call startTheLesson() we can use the box for other things too.
-    setTimeout(function () {     startTheLesson();     }, 1500);
+    if (typeof startTheLesson === "function") {
+      setTimeout(function () {     startTheLesson();     }, 1500);
+    }
   }
 }
 
@@ -105,8 +111,8 @@ function mouseDownClassical() {
 }
 
 // BUTTON TYPE 2: Glassy button with glassy sounds
-const hoverSoundForGlassyButtons = new parent.Howl({  src: ['user_interface/sounds/glassybuttonhover.mp3']  }); // DESKTOPS ONLY! Could add code to disable it on mobile but guess it just works when left like this.
-const clickSoundForGlassyButtons = new parent.Howl({  src: ['user_interface/sounds/glassybuttongiveupskipclick.mp3']  });
+const hoverSoundForGlassyButtons = new parent.Howl({  src: ['user_interface/sounds/glass_button_hover.mp3']  }); // DESKTOPS ONLY! Could add code to disable it on mobile but guess it just works when left like this.
+const clickSoundForGlassyButtons = new parent.Howl({  src: ['user_interface/sounds/glass_button_click.mp3']  });
 /* Use ASIDE elements as a second type of button */
 let allLessonAsideElementsAreInThisArray = document.getElementsByTagName("ASIDE");
 let j;
