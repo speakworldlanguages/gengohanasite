@@ -195,3 +195,40 @@ window.addEventListener("load",function() {
   }
 
 }, { once: true });
+
+/* ____ PWA ____ */
+var doYouWantToInstallprompt;
+window.addEventListener("beforeinstallprompt",(e)=>{
+  e.preventDefault(); // Chrome 67 and earlier needs this
+  doYouWantToInstallprompt = e;
+});
+
+function showInstallPrompt() {
+  if (deviceDetector.isMobile) {
+    if (!localStorage.installPWAPromptHasAlreadyBeenDisplayed) {
+      setTimeout(timingF,1500);
+    }
+  }
+  function timingF() {
+    doYouWantToInstallprompt.prompt();
+    doYouWantToInstallprompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("Add to home screen - Accepted by user");
+        // alert("Good! You can close the browser and restart the app from your Home screen");
+      } else {
+        // alert ("Find the install in ... menu to ")
+      }
+      doYouWantToInstallprompt = null;
+    });
+  }
+}
+
+window.addEventListener("appinstalled",(evt)=>{
+  /* THIS FIRES ONLY ONCE DURING THE LIFETIME OF THE APP */
+  /*
+  That is when the app is first installed
+  CAN WE? save appIsInstalled = "yes" to localStorage??? to hide the [INSTALL NOW] div
+  or should we go with matchMedia "standalone" ? then hide the [INSTALL NOW] div
+  will it be cleared too if browser cache is cleared? Despite being a separate app now?
+  */
+});

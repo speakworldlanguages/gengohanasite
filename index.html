@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head> <!-- This index.html must be a copy of what used to be ja.html found in speakworldlanguages.github.io (NOT the copy of index.html in speakworldlanguages.github.io) -->
+  <head> <!-- This is the index.html of hanaserutoiidesuy.one domain IT IS DIFFERENT from the default speakworldlanguages.app domain -->
 
     <script> var thisIsTheParentWhichContainsAllIFramedLessons = "yes"; </script>
     <meta charset="utf-8">
@@ -9,8 +9,7 @@
     <meta name="description" content="新しい言葉を聴いてからマイクに発音して練習する事:それで外国語の実用は可能">
     <meta name="author" content="土本智一勇夫剛志">
 
-    <!-- https://pedro.agency/digital-marketing/how-to-stop-google-ignoring-your-meta-descriptions/ -->
-    <!-- https://ahrefs.com/blog/meta-robots/ -->
+    <!-- https://pedro.agency/digital-marketing/how-to-stop-google-ignoring-your-meta-descriptions/ --> <!-- https://ahrefs.com/blog/meta-robots/ -->
 
     <link rel="alternate" hreflang="ja" href="https://hanaserutoiidesuy.one">
     <!-- <link rel="alternate" hreflang="ko" href="https://???"> -->
@@ -38,7 +37,7 @@
     <!-- MOVED TO every_single_html.js <script defer src="js_reusables/js_for_fetch_api_character_encoding.js">/*Display extended latin characters (ÇĞİÖŞÜçğıöşü) correctly when using fetch to read txt files*/</script> -->
     <script defer src="js_reusables/js_for_handling_fullscreen_mode.js">/*Handle right-clicks, double-clicks...*/</script>
     <script defer src="js_reusables/js_for_all_container_parent_htmls.js">/*Fake antisleep video, be careful with iPhone fullscreen openfirstlesson, load last studied language codes...*/</script>
-    <script defer src="js_reusables/js_for_browser_device_issues_in_parents.js">/*Whitelist browsers, handling visibilitychange: what happens when user leaves the app*/</script>
+    <script defer src="js_reusables/js_for_browsers_devices_and_pwa.js">/*Whitelist browsers, handling visibilitychange: what happens when user leaves the app*/</script>
     <script defer src="js_reusables/js_for_icon_animation.js">/*A rotating globe next to the title that appears in the browser-tab*/</script>
     <script defer src="js_reusables/js_for_the_sliding_navigation_menu.js">/*NAVIGATION*/</script>
     <!-- <script defer src="js_reusables/js_object_of_all_lessons_listed.js">/*An index of lesson titles and hrefs like an app-map*/</script> -->
@@ -57,9 +56,13 @@
       gtag('config', 'G-8FWCR3LS62');
     </script>
 
+    <!-- PWA -->
+    <!-- Idea: We could have manifest_iOS.json and manifest_default.json and set href when DOMContentLoaded happens -->
+    <link rel="manifest" href="manifest.json">
     <script>
-      /*PLACE ANY SPECIFIC CODE HERE IF NECESSARY*/
+      if ("serviceWorker" in navigator) {  window.addEventListener("load",()=>{  navigator.serviceWorker.register("service-worker.js");  });  }
     </script>
+    
     <style> .extraLineHeight{line-height: 150%;}  </style>
   </head>
   <body>
