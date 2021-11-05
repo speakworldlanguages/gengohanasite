@@ -1,5 +1,5 @@
 {
-  "name": "土本剛志さんの語学学習アプリ",
+  "name": "土本智一勇夫剛志の語学学習アプリ",
   "short_name": "話せるといいね",
   "author": "土本智一勇夫剛志",
   "description": "新しい言葉を聴いてからマイクに発音して練習する事",
@@ -8,7 +8,7 @@
     "sizes": "512x512",
     "type": "image/png"
     }],
-  "start_url": "index.html",
+  "start_url": "index.html?installed",
   "display": "standalone",
   "background_color": "#adbbc4",
   "theme_color": "#4d606f"
