@@ -1,7 +1,7 @@
 var isTheUsersBrowserWhitelisted = false;
 var detectedBrowser;
 var detectedOS;
-var audioFileExtension = "mp3"; // Default to ogg except for Safari // Ogg is better than mp3 but Safari won't play it
+var audioFileExtension = "mp3"; // Default to ogg except for Safari // Ogg is better than mp3 but Safari won't play it.
 
 var deactivationSound2;
 var activationSound2;
@@ -209,42 +209,3 @@ function testAnnyang() {
     } // End of inner “else”
   } // End of if (annyang)
 }
-
-/* ____ PWA ____ */
-let installationIsSupported = false;
-var doYouWantToInstallprompt;
-window.addEventListener("beforeinstallprompt",(e)=>{
-  installationIsSupported = true;
-  e.preventDefault(); // Chrome 67 and earlier needs this
-  doYouWantToInstallprompt = e; //
-});
-const footerAsInstallButton = document.getElementsByTagName('FOOTER')[0];
-function showInstall_PWA_prompt() {
-
-  if (installationIsSupported) {
-    doYouWantToInstallprompt.prompt();
-    doYouWantToInstallprompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === "accepted") {
-        // On Windows it auto closes the tab and auto switches to the new window
-        // On Android it does not auto close and does not switch
-        // alert("Good! You can close the browser and restart the app from your Home screen");
-        // localStorage the-app-has-been-installed removeChild
-      } else {
-        // alert ("Find the install in ... menu to ")
-      }
-      doYouWantToInstallprompt = null;
-    });
-  } else {
-    alert(detectedBrowser.name+" (ㆆ _ ㆆ)");
-    footerAsInstallButton.children[1].style.display = "none"; footerAsInstallButton.children[2].style.display = "block";
-  }
-
-}
-
-/* appinstalled FIRES ONLY ONCE DURING THE LIFETIME OF THE APP */ /* Side note: Clearing local storage from the browser will clear the app's data too */
-/* MDN says, appinstalled is deprecated and according to support table it fires only on Chrome and Edge */
-/*
-window.addEventListener("appinstalled",(evt)=>{   });
-*/
-
-// See manifest.json and use window.location.href to search() for installed
