@@ -10,8 +10,8 @@ const firebaseConfig = {
   projectId: "using-firebase-service",
   storageBucket: "using-firebase-service.appspot.com",
   messagingSenderId: "624023469269",
-  appId: "1:624023469269:web:2116d2ffa20b3394f1765c",
-  measurementId: "G-C23BKN622X"
+  appId: "1:624023469269:web:57354f114e4f82e5f1765c",
+  measurementId: "G-JMY3GKP4RH"
 };
 //
 // // Initialize Firebase
