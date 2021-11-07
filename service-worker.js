@@ -1,9 +1,10 @@
-importScripts(
-  "third_party_js/devicedetector-min.js", "third_party_js/ua-parser.min.js"
-);
+// importScripts(
+//   "third_party_js/devicedetector-min.js", "third_party_js/ua-parser.min.js"
+// );
 /* self does not refer to the DOM window here */
 /* self is the service-worker itself */
-self.addEventListener("activate", event => { /*clear older unused stuff or handle notifications*/ });
+/* install and activate fire only on the first visit*/
+self.addEventListener("activate", event => { /*console.log("SW activate fired!");*/ /*clear older unused stuff or handle notifications*/ });
 self.addEventListener("fetch", event => {
   event.respondWith( caches.match(event.request)
     .then( cachedResponse => {
@@ -12,11 +13,11 @@ self.addEventListener("fetch", event => {
   );
 });
 
-const cacheName = "cache-november2021";
+const cacheName = "cache-7thOfNovember2021";
 // get OS name
-if (true) {
-  // iOS Mac OS no ogg no vp9-webm
-}
+// if (true) {
+//   // iOS Mac OS no ogg no vp9-webm
+// }
 /* resourcesToPrecache , resourcesToPrecacheApple, resourcesToPrecacheDefault*/
 
 // Outcommented files must be cached conditionally
@@ -39,7 +40,7 @@ const resourcesToPrecache = [
   /*_JS BY AUTHOR_*/
   "js_reusables/js_for_all_container_parent_htmls.js",
   "js_reusables/js_for_all_iframed_lesson_htmls.js",
-  "js_reusables/js_for_browsers_devices_and_pwa.js",
+  "js_reusables/js_for_different_browsers_and_devices.js",
   // "js_reusables/js_for_disappearing_custom_cursor.js",
   "js_reusables/js_for_every_single_html.js",
   "js_reusables/js_for_handling_fullscreen_mode.js",
@@ -50,6 +51,7 @@ const resourcesToPrecache = [
   "js_reusables/js_for_notification_or_such_boxes.js",
   // "js_reusables/js_for_odtu.js",
   "js_reusables/js_for_preload_handling.js",
+  // "js_reusables/js_for_pwa.js",
   "js_reusables/js_for_the_sliding_navigation_menu.js",
   // "js_reusables/tilt-to-steer.js",
 
@@ -123,7 +125,7 @@ const resourcesToPrecache = [
 ];
 
 self.addEventListener("install", event => {
-  //console.log("SW install OK");
+  /*console.log("SW install fired!");*/
   event.waitUntil(
     caches.open(cacheName).then(cache => {
       return cache.addAll(resourcesToPrecache);
