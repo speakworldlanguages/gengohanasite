@@ -48,7 +48,7 @@ function subscribeUser() {
         insertData();
         // var notification = new Notification('Great', { body: "You will be notified when new lessons are online", icon: "icon_for_pwa_en.png" }); // THIS DOESN'T WORK!
         reg.showNotification('登録ありがとうございます',
-        { body: "新レッソンのお知らせはこのよう", badge: "badge_ja.png", icon: "icon_for_pwa_ja.png", image: "notification_image.jpg" });
+        { body: "新レッソンのお知らせはこのよう", badge: "notification/badge.png", icon: "icon_for_pwa_ja.png", image: "notification/notification_image.jpg" });
 
       }).catch((err) => {
         console.log('An error occurred while retrieving token. ', err);
