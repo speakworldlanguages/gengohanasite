@@ -48,26 +48,29 @@
     <!-- <script defer src="/js_reusables/js_for_pwa.js">/*IN THE FUTURE: Progressive Web App - Handle installation*/</script> -->
     <!--  -->
     <!-- Firebase : WARN-ING Code is outdated -->
-    <!-- <script type="module" src="notify_ja.js"></script> -->
+    <!-- <script type="module" src="/pwa/notify_ja.js"></script> -->
     <!--  -->
     <!-- SOLVED: THERE USED TO BE A CONFLICT between eruda and the canvas element, probably because they both used "ctx" as the variable name -->
     <!-- Uncomment the following to be able to use the browser console on mobile devices -->
-    <script src="/third_party_js/eruda.js"></script>
-    <script>eruda.init();</script>
+    <!-- <script src="/third_party_js/eruda.js"></script> -->
+    <!-- <script>eruda.init();</script> -->
 
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script>
-    /*
-      window.addEventListener("load",function(){   startTracking();   }, { once: true });
+
+      window.addEventListener("load",startTracking,{once:true});
       function startTracking() {
-        setTimeout(function () { const delayedScript = document.createElement("script"); delayedScript.type = "text/javascript"; delayedScript.src = "https://www.googletagmanager.com/gtag/js?id=G-8FWCR3LS62"; document.body.appendChild(delayedScript); },6000);
+        // Get the array ready
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-8FWCR3LS62');
+        setTimeout(function () {
+          const delayedScript = document.createElement("script"); delayedScript.async = true; delayedScript.src = "https://www.googletagmanager.com/gtag/js?id=G-8FWCR3LS62"; document.body.appendChild(delayedScript);
+        },3000);
       }
-    */
+
     </script>
 
     <!-- PWA -->
@@ -75,8 +78,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="話せるといいね">
     <meta name="apple-mobile-web-app-status-bar-style" content="#4d606f">
-    <link rel="apple-touch-icon" href="/user_interface/homescreen_icon/icon_for_pwa_ja.png">
-    <link rel="manifest" href="manifest_ja.json">
+    <link rel="apple-touch-icon" href="/pwa/homescreen_icon/icon_for_pwa_ja.png">
+    <link rel="manifest" href="/pwa/manifest_ja.json">
     <script>
       if ("serviceWorker" in navigator) {  window.addEventListener("DOMContentLoaded",()=>{  navigator.serviceWorker.register("service-worker.js");  });  } // Takes too long compared to window load (almost a second)
     </script>
@@ -130,6 +133,7 @@
       <img src="/user_interface/images/microphone.webp" style="width:50px;" alt="Please allow microphone" draggable="false">
       <p data-nosnippet>?</p>
       <!-- VERY IMPORTANT: p element must be the second child in the div so that it can be selected with children[1],,, See js_for_different_browsers_and_devices -->
+      <!-- In Safari there will be another P element injected here,,, See js_for_different_browsers_and_devices -->
     </div>
 
     <!-- THE MAIN MENU -->
@@ -144,13 +148,16 @@
             <!-- Observe what names and ids do -->
             <!-- If more than one dialect|accent is available, better if we prompt and ask which one user wants to hear -->
             <button name="ja"  id="">八島語 (日本語)</button>
-            <!-- <button name="ko"  id="">Saram Language (Korean)</button> -->
-            <button name="zh"  id="">レンメン (中華語)</button> <!-- As of 2023 putongnua dialect chosen automatically -->
-            <button name="tr"  id="">キシ (トルコ語)</button> <!-- As of 2023 istanbul dialect chosen automatically -->
-            <button name="ar"  id="">標準アラビア語</button>
-            <!-- <button name="de"  id="">ロイテ (ドイツ語)</button> -->
-            <!-- <button name="fr"  id="">ジョン (フランス語)</button> -->
-            <!-- <button name="en"  id="">東または西イングリッシュ(英語)</button> -->
+            <button name="ko"  id="" style="opacity:0.55; pointer-events:none;">韓国語 (近日公開)</button> <!-- サラム語 (韓国語) -->
+            <!-- As of 2023 putonghua dialect chosen automatically -->
+            <button name="zh"  id="" style="opacity:0.55; pointer-events:none;">中華語 (近日公開)</button> <!-- レンメン語 (中華語) -->
+            <!-- As of 2023 istanbul dialect chosen automatically -->
+            <!-- <button name="tr"  id="">キシ語 (トルコ語)</button> -->
+            <!-- <button name="ar"  id="">標準アラビア語</button> -->
+            <!-- ロイテ語 (ドイツ語) -->
+            <!-- <button name="de"  id="" style="opacity:0.55; pointer-events:none;">ドイツ語 (近日公開)</button> -->
+            <!-- <button name="fr"  id="">ジョン語 (フランス語)</button> -->
+            <!-- <button name="en"  id="">東方か西方イングリッシュ(英語)</button> -->
             <!-- WHEN NEW BUTTONS ARE ADDED -->
             <!-- MUST UPDATE function startTeaching(usersChoice) in js_for_the_parent_all_browsers_all_devices -->
             <!-- Also check letUserChooseAnAccentOrDialect -->
@@ -220,7 +227,7 @@
           b2.classList.add("layerB2_mobile");
           canvas.classList.add("canvasPhoneOrTablet");
           let i; for (i = 0; i < buttons.length; i++) { buttons[i].classList.add("buttonMobile"); }
-          footer.classList.add("footerPhoneOrTablet");
+          footer.classList.add("footerPhoneOrTablet"); // See css_for_the_container_parent_html
           if (!isApple) { // Android
             topContainerDivOfTheSlidingNavMenuForMobiles.appendChild(footer);
             footer.style.position = "absolute";
@@ -233,11 +240,13 @@
     </script>
 
     <!-- WHAT TO DISPLAY DURING APP MAINTENANCE :: UNCOMMENT WHEN NECESSARY -->
+    <!--
     <div data-nosnippet id="removeThisID" onmouseup="adminAccess()" style="position: fixed; z-index:50000; width:100vw; height:100vh; background-color:white; display:flex; align-items:center; justify-content:center; flex-direction: column;">
       <img data-nosnippet src="/user_interface/images/maintenance.png" alt="...">
       <p data-nosnippet style="color:#040a17;">メンテナンス中ですので<br>アプリは利用できません</p>
     </div>
     <script>let secretCounter=0; function adminAccess() { secretCounter++; if (secretCounter>4) { document.body.removeChild(document.getElementById('removeThisID')); } }</script>
+    -->
     <!-- END OF WHAT TO DISPLAY DURING APP MAINTENANCE -->
 
   </body>
