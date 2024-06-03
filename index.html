@@ -45,13 +45,13 @@
     <script defer src="/js_reusables/js_for_info_boxes_in_parent.js">/*[Your progress will be saved] box and [Your progress has been loaded] box*/</script>
     <script defer src="/js_for_cache_handling/0_parent_initial_load_and_111.js">/*Get the files in advance to minimize waiting time - The latter caching will be handled from within each iframed html*/</script>
 
-    <!-- <script defer src="/js_reusables/js_for_pwa.js">/*IN THE FUTURE: Progressive Web App - Handle installation*/</script> -->
+    <!-- <script defer src="/pwa/js_for_pwa.js">/*IN THE FUTURE: Progressive Web App - Handle installation*/</script> -->
     <!--  -->
-    <!-- Firebase : WARN-ING Code is outdated -->
-    <!-- <script type="module" src="/pwa/notify_ja.js"></script> -->
+    <!-- Firebase -->
+    <script defer async type="module" src="/pwa/firebase.js"></script>
     <!--  -->
     <!-- SOLVED: THERE USED TO BE A CONFLICT between eruda and the canvas element, probably because they both used "ctx" as the variable name -->
-    <!-- Uncomment the following to be able to use the browser console on mobile devices -->
+    <!-- Uncomment the following to be able to use the browser console on mobile devices. CAUTION: iframes must use parent.console.log -->
     <!-- <script src="/third_party_js/eruda.js"></script> -->
     <!-- <script>eruda.init();</script> -->
 
@@ -76,7 +76,7 @@
     <!-- PWA -->
     <!-- Idea: We could have manifest_iOS.json and manifest_default.json and set href when DOMContentLoaded happens -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="話せるといいね">
+    <meta name="apple-mobile-web-app-title" content="話せるといいよね">
     <meta name="apple-mobile-web-app-status-bar-style" content="#4d606f">
     <link rel="apple-touch-icon" href="/pwa/homescreen_icon/icon_for_pwa_ja.png">
     <link rel="manifest" href="/pwa/manifest_ja.json">
